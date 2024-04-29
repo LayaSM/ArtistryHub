@@ -1,0 +1,21 @@
+<%- include('../partials/header.ejs')%>
+<main>
+    <% const activeArtworks = artworks.filter(art => art.active);
+    activeArtworks.sort((a, b) => a.price - b.price);
+
+    if (activeArtworks.length) { 
+        activeArtworks.forEach((art, index) => { %>
+            <div class="item">
+                <img src="<%= art.image%>" alt="<%= art.title %>">
+                <div class="item-title"><%= art.title %></div>
+                <div class="item-info">Condition: <%= art.condition %></div>
+                <div class="item-info">Price: $<%= art.price %></div>
+                <div class="item-info">Total Offers: <%= art.totalOffers %></div>
+                <a href="/artworks/<%= art.id%>">View Details</a>
+            </div>
+        <% });
+    } else { %> 
+        <p>No artworks to display yet!</p>
+    <% } %>
+</main>
+<%- include('../partials/footer.ejs')%>

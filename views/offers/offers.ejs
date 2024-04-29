@@ -1,0 +1,46 @@
+<%- include('../partials/header.ejs')%>
+<main class="offers-page">
+    <p class="pf-message">Offers for: <%= artworks[0].title %></p>
+    <table class="artwork-table">
+        <thead>
+            <tr>
+                <th>Buyer</th>
+                <th>Offer Amount</th>
+                <th>
+                    <% if ((artworks[0].active) && (offers[0].status === 'pending')) { %>
+                        Action <!-- Display "Action" if the item is active and there are pending offers -->
+                    <% } else { %>
+                        Status <!-- Display "Status" if the item is inactive or all offers are accepted/rejected -->
+                    <% } %>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% offers.forEach((offer) => { %>
+            <tr>
+                <td><%= offer.user.firstName %></a></td>
+                <td>$<%= offer.amount %></td>
+                <td>
+                    <% if (artworks[0].active) { %>
+                        <% if (offer.status === 'pending') { %>
+                            <form method="POST" action="/artworks/<%= artworks[0].id %>/offers/<%= offer._id %>?_method=PUT">
+                                <button class="pf-view-offers-button" type="submit">Accept</button>
+                            </form>
+                        <% } else { %>
+                            <%= offer.status %>
+                        <% } %>
+                    <% } else { %>
+                        <%= offer.status %>
+                    <% } %>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</main>
+<%- include('../partials/footer.ejs')%>
+
+
+
+
+

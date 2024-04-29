@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">    
+        <link rel="stylesheet" href="/css/styles.css">
+        <title>Index Page</title>
+    </head>
+    <body>
+        <header id="header" class="flex-row">
+            <a href="/">
+                <img src="/images/logo.png" alt="logo">
+            </a>
+            <div class="search-bar">
+                <form action="/artworks" method="GET"> 
+                    <i class="fas fa-search"></i>
+                    <input type="search" name="search" placeholder="Search">
+                </form>
+            </div>
+            <nav>
+                <ul class ="flex-row">
+                    <li><a href="/artworks">Browse</a></li>
+                    <li><a href="/artworks/new">Sell</a></li>
+                    <%if(!user){%>
+                        <li><a href="/users/new">Sign Up</a></li>
+                        <li><a href="/users/login">Log in</a></li>
+                    <%} else {%>
+                        <li><a href='/users/profile'>My Account</a></li>
+                        <li><a href='/users/logout'>Logout</a></li>
+                    <%}%>
+                    
+                </ul>
+            </nav>
+        </header>
+        <div class = "content">
+            <% if(errorMessages.length > 0) {%>
+                <% errorMessages.forEach(message=>{%>
+                    <div class='error'>
+                        <%=message%>
+                    </div>
+                    <%});%>
+                        <%}%>
+                            <% if(successMessages.length > 0) {%>
+            
+                                <% successMessages.forEach(message=>{%>
+                                    <div class='success'>
+                                        <%=message%>
+                                    </div>
+                                    <%});%>
+                                        <%}%>
+        </div>

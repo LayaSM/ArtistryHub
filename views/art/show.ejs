@@ -1,0 +1,34 @@
+<%- include('../partials/header.ejs')%>
+<main>
+    <div class="item-hero">
+        <div class="item-details">
+            <img class="ind-item-image" src="<%= art.image%>">
+            <div class="ind-item-info">
+                <div class="title"><%= art.title%></div>
+                <small>Seller: <%= art.seller.firstName + ' ' + art.seller.lastName %></small>
+                <p>Condition: <%= art.condition%></p>
+                <p>Price: $<%= art.price%></p>
+                <p>Total Offers: <%= art.totalOffers%></p>
+                <p>Active: <%= art.active ? 'Yes' : 'No' %></p>
+                <p>Details: <%= art.details%></p>
+                <% if (!art.active) { %>
+                    <p>This item is no longer available.</p> <!-- Display message if item is not active -->
+                <% } else { %>
+                    <!-- Form for making an offer -->
+                    <form method="POST" action="/artworks/<%= art._id %>">
+                        <div class="offer">
+                            <input class="offerInp" type="number" step="0.01" min="0.01" name="amount" id="amount" required>
+                            <button class="offerBtn" type="submit">Make Offer</button>
+                        </div>
+                    </form>
+                    <% if (art.highestOffer) { %>
+                        <div>
+                            <p>Highest Offer: $<%= art.highestOffer %></p>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</main>
+<%- include('../partials/footer.ejs')%>

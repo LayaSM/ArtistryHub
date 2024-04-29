@@ -1,0 +1,72 @@
+<%- include('../partials/header.ejs')%>
+<main class="profile-page">
+    <h2 class="pf-h2">Hey <%= user.firstName %>!</h2>
+
+    <% if (artworks.length) { %>
+        <p class="pf-message">You have created the following artworks:</p>
+        <table class="artwork-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% artworks.forEach((art, index) => { %>
+                    <tr>
+                        <td><a href="/artworks/<%= art.id %>"><%= art.title %></a></td>
+                        <td><%= art.active ? 'Active' : 'Inactive' %></td>
+                        <td>
+                            <div class="pf-action-buttons">
+                                <form method="GET" action="/artworks/<%= art.id %>/edit">
+                                    <button class="pf-edit-button" type="submit"><i class="fas fa-edit"></i></button>
+                                </form>
+                                <form method="POST" action="/artworks/<%= art.id %>?_method=DELETE">
+                                    <button class="pf-delete-button" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                                <form method="GET" action="/artworks/<%= art.id %>/offers">
+                                    <button class="pf-view-offers-button" <% if (!art.totalOffers) { %>disabled<% } %>>View Offers</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p class="pf-message">You have not created any art yet :(</p>
+    <% } %>
+
+    <% if (offers.length) { %>
+        <p class="pf-message">My offers:</p>
+        <table class="artwork-table">
+            <thead>
+                <tr>
+                    <th>Artwork</th>
+                    <th>Offer Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% offers.forEach((offer) => { %>
+                    <% if (offer.item) { %>
+                        <tr>
+                            <td><a href="/artworks/<%= offer.item._id %>"><%= offer.item.title %></a></td>
+                            <td>$<%= offer.amount.toFixed(2) %></td>
+                            <td><%= offer.status %></td>
+                        </tr>
+                    <% } %>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p class="pf-message">You have not made any offers yet.</p>
+    <% } %>
+</main>
+<%- include('../partials/footer.ejs')%>
+
+
+
+
+

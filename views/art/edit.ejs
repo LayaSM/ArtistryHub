@@ -1,0 +1,42 @@
+<%- include('../partials/header.ejs')%>
+<main>
+    <section class="edit-form">
+        <div>
+            <h2>Edit your Listing!</h2>
+            <h4>Feel free to make any changes you wish to the listed item!</h4>
+        </div>
+        <form method="POST" action="/artworks/<%= art.id %>?_method=PUT" enctype="multipart/form-data">
+            <label for="condition">Condition:</label>
+            <select id="condition" name="condition" required>
+                <option value="" disabled>Select condition</option>
+                <option value="new" <%= art.condition === 'new' ? 'selected' : '' %>>New</option>
+                <option value="like_new" <%= art.condition === 'like_new' ? 'selected' : '' %>>Like New</option>
+                <option value="used" <%= art.condition === 'used' ? 'selected' : '' %>>Used</option>
+                <option value="fair" <%= art.condition === 'fair' ? 'selected' : '' %>>Fair</option>
+                <option value="poor" <%= art.condition === 'poor' ? 'selected' : '' %>>Poor</option>
+            </select>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="<%= art.title %>" required>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" value="<%= art.price %>" required>
+
+            <label for="active">Status:</label>
+            <select id="active" name="active" required>
+                <option value="" disabled>Select status</option>
+                <option value="true" <%= art.active === true ? 'selected' : '' %>>Active</option>
+                <option value="false" <%= art.active === false ? 'selected' : '' %>>Inactive</option>
+            </select>
+
+            <label for="details">Details:</label>
+            <textarea id="details" name="details" rows="4" required minlength="20"><%= art.details %></textarea>
+
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" value="<%= art.image %>">
+            
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+</main>
+<%- include('../partials/footer.ejs')%>
